@@ -19,21 +19,21 @@ class Solution {
     }
 
     private TreeNode convertArray(int[] nums, int start, int end) {
-        // Base case: invalid range
+        // Base case
         if (start > end) {
             return null;
         }
-        
-        // Find the middle element
+
+        // Find the middle index
         int mid = start + (end - start) / 2;
-        
-        // Root node is the middle element
+
+        // Create a node from the middle element
         TreeNode root = new TreeNode(nums[mid]);
-        
-        // Recursively build left and right subtrees
+
+        // Recursively construct the left and right subtrees
         root.left = convertArray(nums, start, mid - 1);
         root.right = convertArray(nums, mid + 1, end);
-        
+
         return root;
     }
 }
