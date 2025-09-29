@@ -1,20 +1,20 @@
+import java.util.PriorityQueue;
+import java.util.Collections;
+
 class Solution {
     public int maxProduct(int[] nums) {
-        int n = nums.length;
-        // We can track the largest and second largest
-        int max1 = Integer.MIN_VALUE;
-        int max2 = Integer.MIN_VALUE;
-
-        for (int x : nums) {
-            if (x > max1) {
-                // shift down
-                max2 = max1;
-                max1 = x;
-            } else if (x > max2) {
-                max2 = x;
-            }
+        // Max heap
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        
+        // Add all numbers to heap
+        for (int num : nums) {
+            maxHeap.add(num);
         }
-
-        return (max1 - 1) * (max2 - 1);
+        
+        // Extract two largest numbers
+        int first = maxHeap.poll();
+        int second = maxHeap.poll();
+        
+        return (first - 1) * (second - 1);
     }
 }
