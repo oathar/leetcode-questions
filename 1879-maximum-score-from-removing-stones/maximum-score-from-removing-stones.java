@@ -1,11 +1,24 @@
+import java.util.PriorityQueue;
+
 class Solution {
     public int maximumScore(int a, int b, int c) {
-        long total = (long)a + b + c;  // use long to avoid overflow
-        long mx = Math.max(a, Math.max(b, c));
-        // maximum possible if always pairing
-        long maxPossible = total / 2;
-        // maximum possible constrained by largest pile
-        long constrained = total - mx;
-        return (int)Math.min(maxPossible, constrained);
+        // Use a max-heap (largest first)
+        PriorityQueue<Integer> pq = new PriorityQueue<>((x, y) -> y - x);
+        if (a > 0) pq.offer(a);
+        if (b > 0) pq.offer(b);
+        if (c > 0) pq.offer(c);
+        
+        int score = 0;
+        while (pq.size() >= 2) {
+            int x = pq.poll();
+            int y = pq.poll();
+            // remove one from each
+            x--;
+            y--;
+            score++;
+            if (x > 0) pq.offer(x);
+            if (y > 0) pq.offer(y);
+        }
+        return score;
     }
 }
